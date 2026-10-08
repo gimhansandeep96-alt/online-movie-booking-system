@@ -17,7 +17,7 @@ public class ShowController {
     private final ShowService showService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<ShowDTO> createShow(@RequestBody ShowDTO showDTO) {
         return new ResponseEntity<>(showService.createShow(showDTO), HttpStatus.CREATED);
     }

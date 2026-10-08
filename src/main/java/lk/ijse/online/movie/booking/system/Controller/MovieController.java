@@ -12,13 +12,13 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/movies")
 @RequiredArgsConstructor
 public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<MovieDTO> createMovie(@Valid @RequestBody MovieDTO movieDTO) {
         return new ResponseEntity<>(movieService.createMovie(movieDTO), HttpStatus.CREATED);
     }

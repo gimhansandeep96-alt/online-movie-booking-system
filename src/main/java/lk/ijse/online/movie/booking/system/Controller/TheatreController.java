@@ -17,7 +17,7 @@ public class TheatreController {
     private final TheatreService theatreService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+
     public ResponseEntity<TheatreDTO> createTheatre(@RequestBody TheatreDTO theatreDTO) {
         return new ResponseEntity<>(theatreService.createTheatre(theatreDTO), HttpStatus.CREATED);
     }

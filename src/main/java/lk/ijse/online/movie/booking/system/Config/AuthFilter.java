@@ -14,15 +14,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 @RequiredArgsConstructor
-public class AuthFilter  extends OncePerRequestFilter {
+public class AuthFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        // Preflight (OPTIONS) request එකක් නම් token check නොකර කෙළින්ම ඊළඟ filter එකට යවන්න
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization");
 

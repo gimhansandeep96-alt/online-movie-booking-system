@@ -5,6 +5,7 @@ import lk.ijse.online.movie.booking.system.DTO.MovieDTO;
 import lk.ijse.online.movie.booking.system.Entity.MovieEntity;
 import lk.ijse.online.movie.booking.system.Service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
     private final MovieDAO movieDAO;
-
+    @PreAuthorize("hashRole(ADMIN)")
     @Override
     public MovieDTO createMovie(MovieDTO movieDTO) {
         MovieEntity movie = mapToEntity(movieDTO);
@@ -51,7 +52,7 @@ public class MovieServiceImpl implements MovieService {
         MovieEntity updatedMovie = movieDAO.save(existingMovie);
         return mapToDTO(updatedMovie);
     }
-
+    @PreAuthorize("hashRole(ADMIN)")
     @Override
     public void deleteMovie(Long id) {
         if (!movieDAO.existsById(id)) {
