@@ -41,6 +41,13 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/movies/**").permitAll()
                         .requestMatchers("/shows/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/movies/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/movies/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/movies/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/shows/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/shows/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/shows/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
 
